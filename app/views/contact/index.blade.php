@@ -109,7 +109,7 @@
 
 					<h3 class="form-title">Envíanos una nota</h3>
 
-					{{ Form::open( ['route' => 'contact_store', 'method' => 'POST', 'role' => 'form'] ) }}
+					{{ Form::open( ['route' => 'contact_store', 'method' => 'POST', 'role' => 'form', 'onsubmit' => 'btnSubmit.disabled() = true; return true;'] ) }}
 
 					<div class="form-content name">
 						{{ Form::label('full_name', 'Titulo', ['class' => 'form-label']) }}
@@ -137,7 +137,7 @@
 					</div>
 
 					<div class="form-content submit">
-						{{ Form::submit('ENVIAR MENSAJE', ['id' =>'btnSubmit']) }}
+						{{ Form::submit('ENVIAR MENSAJE', ['id' =>'btnSubmit', 'name' => 'btnSubmit']) }}
 					</div>	
 
 					{{ Form::close() }}				

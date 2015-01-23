@@ -11,12 +11,11 @@
 @stop
 
 @section('header')
-@parent
-<h1 class="home-title">Incotec</h1>
+	@parent
+	<h1 class="home-title">Incotec</h1>
 @stop
 
-@section('content')
-	
+@section('content')	
 	<div class="container limit">
 
 		<div class="breadcrumbs">
@@ -33,49 +32,71 @@
 			<a href="#" class="carousel-right"><span class="arrow"></span></a>
 			
 			<div class="carousel-inner">
-				@foreach ($carrousels as $carrousel)
-				@if (Auth::check())
-				<div class="item">
-					<img src="{{ asset($carrousel->image_url) }}" alt="{{ $carrousel->title }}" />
-					<div class="caption auth">
-						{{ Form::open(['route' => ['carrousel_update', $carrousel->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'form form-container', 'files' => 'true']) }}
-						<div class="form-content">
-							{{ Form::file('image_url', ['class' => 'form-control']) }}						
-						</div>
-						<div class="form-content">
-							{{ Form::text('title', $carrousel->title, ['class' => 'form-control', 'required'=>'true', 'placeholder' => 'Ingrese un titulo']) }}	
-						</div>
-						
-						<div class="form-content">
-							{{ Form::text('body', $carrousel->body, ['class' => 'form-control', 'placeholder' => 'Ingrese una breve descripcion.']) }}	
-						</div>
-						
 
-						{{ Form::submit('Editar', ['class' => 'btn btn-primary']) }}
-						{{ Form::close() }}
-						<div class="pull-right">
-						{{ Form::open(['route' => ['carrousel_delete', $carrousel->id], 'method' => 'delete', 'role' => 'form', 'class' => 'is-inline-block']) }}	
+					@forelse ($carrousels as $carrousel)	
+						@if ( Auth::check() )
+							<div class="item">
+								<img src="{{ asset($carrousel->image_url) }}" alt="{{ $carrousel->title }}" />
+								<div class="caption auth">
+									{{ Form::open(['route' => ['carrousel_update', $carrousel->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'form form-container', 'files' => 'true']) }}
+									
+									<div class="form-content">
+										{{ Form::file('image_url', ['class' => 'form-control']) }}						
+									</div>
 
-							{{ Form::submit('Eliminar', ['class' => 'btn btn-danger']) }}
-						{{ Form::close() }}
-						{{ Form::open(['route' => 'carrousel_create', 'method' => 'POST', 'role' => 'form', 'class' => 'is-inline-block']) }}	
+									<div class="form-content">
+										{{ Form::text('title', $carrousel->title, ['class' => 'form-control', 'required'=>'true', 'placeholder' => 'Ingrese un titulo']) }}	
+									</div>
+									
+									<div class="form-content">
+										{{ Form::text('body', $carrousel->body, ['class' => 'form-control', 'placeholder' => 'Ingrese una breve descripcion.']) }}	
+									</div>
+									
+									<div class="form-contend">
+										{{ Form::submit('Editar', ['class' => 'btn btn-primary']) }}
+										{{ Form::close() }}
 
-							{{ Form::submit('Nuevo', ['class' => 'btn btn-succes']) }}
-						{{ Form::close() }}
-						</div>
-					</div>
-				</div>
-				@else
-				<div class="item">
-					<img src="{{ asset($carrousel->image_url) }}" alt="{{ $carrousel->title }}" />
-					<div class="caption">
-						<h2 class="title">{{ $carrousel->title }}</h2>
+										{{ Form::open(['route' => ['carrousel_delete', $carrousel->id], 'method' => 'delete', 'role' => 'form', 'class' => 'is-inline-block']) }}	
 
-						<p class="content">{{ $carrousel->body }}</p>
-					</div>
-				</div>
-				@endif				
-				@endforeach						
+											{{ Form::submit('Eliminar', ['class' => 'btn btn-danger']) }}
+										{{ Form::close() }}
+
+										{{ Form::open(['route' => 'carrousel_create', 'method' => 'POST', 'role' => 'form', 'class' => 'is-inline-block']) }}	
+
+											{{ Form::submit('Nuevo', ['class' => 'btn btn-succes']) }}
+										{{ Form::close() }}
+									</div>
+								</div>
+							</div>
+						@else
+							<div class="item">	
+								<img src="{{ asset($carrousel->image_url) }}" alt="{{ $carrousel->title }}" />
+								<div class="caption">
+									<h2 class="title">{{ $carrousel->title }}</h2>
+									<p class="content">{{ $carrousel->body }}</p>
+								</div>
+							</div>
+						@endif		
+					@empty
+						@if ( Auth::check() )
+							<div class="item ">
+								<img src="{{ asset( 'images/static/carrousel-help.jpg' ) }}" alt="imagen de ayuda cuando no hay ninguna imagen en el carrusel" />
+								<div class="caption">
+									<h2 class="title">Eliminastes todas las imagenes del carrusel D:, sera mejor que añadas uno nuevo.</h2>
+									{{ Form::open(['route' => 'carrousel_create', 'method' => 'POST', 'role' => 'form', 'class' => 'is-inline-block']) }}	
+										{{ Form::submit('Nuevo', ['class' => 'btn btn-succes']) }}
+									{{ Form::close() }}
+								</div>
+							</div>
+						@else
+							<div class="item">
+								<img src="{{ asset( 'images/static/incotec.jpg' ) }}" alt="azul" />
+								<div class="caption">
+									<h2 class="title">En mantenimiento.</h2>
+								</div>
+							</div>
+						@endif								
+					@endforelse									
 			</div>
 		</div>
 
@@ -154,5 +175,4 @@
 			</div>
 		</div>
 	</div>
-
 @stop

@@ -1,7 +1,7 @@
 <?php namespace Incotec\Entities;
 
 class Activity extends \Eloquent {
-	protected $fillable = ['title', 'date_begin', 'date_end', 'time', 'body', 'programme'];
+	protected $fillable = ['title', 'date_begin', 'date_end', 'time', 'body', 'programme', 'available', 'slug'];
 	protected $table = 'activities';
 	protected $perPage = 5;
 

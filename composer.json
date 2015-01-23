@@ -5,12 +5,11 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
+		"ext-gd": "*",
 		"laravel/framework": "4.2.*",
 		"fzaninotto/faker": "1.5.*@dev",
 		"way/generators": "~2.0",
-		"intervention/imagecache": "2.*",
-		"ext-gd": "*",
-		"ext-imagick": "*"
+		"intervention/imagecache": "2.*"		
 	},
 	"autoload": {
 		"psr-4":{

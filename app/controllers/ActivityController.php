@@ -1,7 +1,6 @@
 <?php
 
-use Incotec\Entities\Activity;
-use Incotec\Entities\Programme;
+use Incotec\Managers\ActivityManager; 
 use Incotec\Repositories\ActivityRepo;
 use Incotec\Repositories\NoticiaRepo;
 use Incotec\Repositories\CourseRepo;
@@ -40,31 +39,12 @@ class ActivityController extends \BaseController {
 	
 	public function store()
 	{
-		$data = Input::only( [ 'title', 'date_begin', 'date_end', 'time', 'body', 'programme' ] );
-
-		$rules = 
-		[
-			'title'  		=> 'required',
-			'date_begin'  	=> 'required|date',
-			'date_end'  	=> 'required|date',
-			'time'  		=> 'required',
-			'body'  		=> 'required'
-		];
-
-		$validation = Validator::make($data, $rules);
-
-		if( $validation->fails() )
+		$activity = $this->activityRepo->newActivity();	
+		$manager  = new ActivityManager( $activity, Input::all() );
+		if ( $manager->save() ) 
 		{
-			return Redirect::back()->withInput()->withErrors( $validation->messages() );
-		} else {
-			$activity = new Activity($data);
-
-			$activity->available = true;
-			$activity->slug      = \Str::slug( $data['title'] );
-			$activity->save();
+			return Redirect::route('activity', [$activity->slug, $activity->id] )->with(['alert-success' => 'Se inserto el registro correctamente.']);
 		}
-
-		return Redirect::route('activity', [$activity->slug, $activity->id] )->with(['alert-success' => 'Se inserto el registro correctamente.']);
 	}
 
 	public function programmeStore( $id )
@@ -81,16 +61,16 @@ class ActivityController extends \BaseController {
 
 		if($validation->fails())
 		{
-			return Redirect::back()->withInput()->withErrors($validation->messages());
+			return Redirect::back()->withErrors($validation->messages());
 
 		} else {
-			$programme = new Programme($data);
-
+			$programme = $this->programmeRepo->newProgramme();
+			$programme->fill($data);
 			$programme->activity_id = $id;
 			$programme->save();
 		}
 
-		return Redirect::back()->with( [ 'alert-success' => 'Se inserto el registro correctamente.' ] );		
+		return Redirect::back()->with( [ 'alert-success' => 'Se creo el registro correctamente.' ] );		
 	}
 	
 	public function show( $slug ,$id )
@@ -107,41 +87,19 @@ class ActivityController extends \BaseController {
 
 	public function edit( $id )
 	{
-		$latest_photos = $this->photoRepo->findLatest(8);
 		$activity      = $this->activityRepo->find($id);
 
-		return View::make( 'activity.form', compact( 'latest_photos', 'activity' ) );
+		return View::make( 'activity.form', compact( 'activity' ) );
 	}
 	
 	public function update( $id )
 	{
 		$activity = $this->activityRepo->find($id);
-
-		$data = Input::only(['title', 'date_begin', 'date_end', 'time', 'body', 'programme']);
-
-		$rules = 
-		[
-		'title'  		=> 'required',
-		'date_begin'  	=> 'required|date',
-		'date_end'  	=> 'required|date',
-		'time'  		=> 'required',
-		'body'  		=> 'required'
-		];
-
-		$validation = Validator::make( $data, $rules );
-
-		if( $validation->fails() )
+		$manager  = new ActivityManager( $activity, Input::all() );
+		if ( $manager->save() ) 
 		{
-			return Redirect::back()->withInput()->withErrors($validation->messages());
-		} else {
-			$activity->fill($data);
-
-			$activity->available = true;
-			$activity->slug      = \Str::slug( $data['title'] );
-			$activity->save();
+			return Redirect::route('activity', [$activity->slug, $activity->id] )->with(['alert-info' => 'Se edito el Evento correctamente.']);
 		}
-
-		return Redirect::route('activity', [$activity->slug, $activity->id] )->with(['alert-info' => 'Se edito el registro correctamente.']);
 	}
 
 	public function programmeUpdate($id)
@@ -172,14 +130,14 @@ class ActivityController extends \BaseController {
 	{
 		$activity = $this->activityRepo->find($id);	
 		$this->activityRepo->eliminar($id);
-		return Redirect::route('activities')->with(['alert-warning' => 'Se elimino el registro correctamente.']);
+		return Redirect::route('activities')->with(['alert-warning' => 'Se elimino el Evento correctamente.']);
 	}
 
 	public function programmeDestroy($id)
 	{
 		$programme = $this->programmeRepo->find($id);				
 		$this->programmeRepo->eliminar($id);
-		return Redirect::back()->with(['alert-warning' => 'Se elimino el registro correctamente.']);		
+		return Redirect::back()->with(['alert-warning' => 'Se elimino la Actividad correctamente.']);		
 	}
 
 }

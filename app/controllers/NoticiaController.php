@@ -1,6 +1,5 @@
 <?php
 
-use Incotec\Entities\Noticia;
 use Incotec\Managers\NoticiaManager;
 use Incotec\Repositories\NoticiaRepo;
 use Incotec\Repositories\CourseRepo;
@@ -59,7 +58,8 @@ class NoticiaController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($validation->messages());
 		} else {
 			$getRealPath = 'images/assets/'.date('Y').'/';
-			$noticia = new Noticia($data);
+			$noticia = $this->noticiaRepo->newNoticia();
+			$noticia->fill($data);			
 			$noticia->available = true;
 						
 			$noticia->image_url = $getRealPath.$data['image_url']->getClientOriginalName();
@@ -71,27 +71,25 @@ class NoticiaController extends \BaseController {
 			if ($noticia->save())
 			{
 				$i = 0;
-				//separamos el nombre de la img y la extensión
+				// separamos el nombre de la img y la extensión
 				$info = explode(".",$file->getClientOriginalName());
-				//asignamos de nuevo el nombre de la imagen completo
+				// asignamos de nuevo el nombre de la imagen completo
 				$miImg = $file->getClientOriginalName();
-				 //mientras el archivo exista iteramos y aumentamos i
+				// mientras el archivo exista iteramos y aumentamos i
 				while(file_exists($getRealPath.$miImg))
 				{
 					$i++;
 					$miImg = $info[0]."(".$i.")".".".$info[1];
 				}
-				//guardamos la imagen con otro nombre ej foto(1).jpg || foto(2).jpg etc
+				// guardamos la imagen con otro nombre ej foto(1).jpg || foto(2).jpg etc
 				$file->move($getRealPath, $miImg);
-				//si ha cambiado el nombre de la foto por el original actualizamos el campo foto de la bd
+				// si ha cambiado el nombre de la foto por el original actualizamos el campo foto de la bd
 				if($miImg != $noticia->image_url)
 				{
 					$noticia->image_url = $getRealPath.$miImg;
 					$noticia->save();
 				}
-			}
-			
-
+			}		
 			
 			return Redirect::route('noticia', [$noticia->slug, $noticia->id] )->with(['confirm' => 'Se inserto el registro correctamente.']);
 		}		
