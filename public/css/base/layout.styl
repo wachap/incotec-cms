@@ -1,0 +1,467 @@
+
+body	
+	background #F9F9F9
+	font-family 'Open Sans', sans-serif, arial
+	font-size m
+	.container
+		margin 0 auto 40px auto
+		overflow hidden
+		
+		.breadcrumbs
+			.list
+				margin 0
+				padding 0 0 0 5px
+				li					
+					display inline-block
+					font-size s
+					font-weight 400
+					//line-height 35px
+					padding 9px 0
+				.link
+					a
+						color color1
+						font-weight 400
+						text-decoration none
+						transition 0.3s all ease
+						&:after
+							color #CCCCCC
+							content " |  " 
+						&:hover
+							color black							
+				.active
+					color #999999
+					padding-top 0
+
+
+header 	
+	background #FFFFFF
+	border-bottom 1px solid #F4F4F4
+	.home-title
+		visibility hidden
+		position: absolute
+	.limit-nav-top
+		background: #20221E
+	.nav-top
+		//overflow hidden
+		max-width 1300px
+		margin 0 auto
+		height 44px
+		.text
+			padding 0 0 0 15px
+			line-height: 44px
+			color #A0A0A0
+			font-weight: 400
+			
+			
+		.item
+			position relative
+			z-index: 100
+			float right
+			&:hover
+				.user					
+					background: #060905
+					color #F9F9F9
+					&:after
+						triangle('top', #F9F9F9, 5px, 5px, 5px, 5px)
+				.sub-menu
+					visibility visible
+			.user				
+				color #A0A0A0
+				cursor pointer
+				padding 10.5px 30px 10.5px 12px
+				border-radius 5px				
+				display block
+				position: relative
+				&:after					
+					triangle('top', #A0A0A0, 5px, 5px, 5px, 5px)
+					position: absolute
+					top 19.5px
+					right 12px
+					
+			.sub-menu
+				visibility hidden
+				box-shadow 0 3px 10px rgba(0,0,0,0.2)
+				position absolute
+				border-radius 0 0 3px 3px
+				top 100%
+				right 0
+				background: #FCFEFA
+				margin 0
+				padding 0
+				li
+					list-style none
+					a
+						text-decoration: none
+						display block
+						padding 6px 12px
+						color #20221E
+						&:hover
+							background: #F1F4F0
+							
+		
+	.limit
+		padding 5px	5px 0 5px
+		position relative	
+		.logo					
+			display inline-block
+			height 90px
+			a
+				height 100%
+				img
+					height inherit
+					width 250px
+		.menu											
+			position absolute
+			right 5px
+			top 29.5px
+			.list								
+				margin 0
+				padding 0				
+				.item
+					display inline-block		
+					margin 0 0 0 20px
+					position: relative
+					text-decoration none	
+					&:hover
+						
+						.title-link
+							color color1
+							margin -5px 0 0 0
+							&:after	
+								border-bottom 5px solid color1
+								border-left 1px solid color1
+						.sub-menu
+							height 91px
+					.title-link
+						color $black
+						display block
+						font-size sm
+						font-weight 700
+						position relative
+						text-align: center
+						text-decoration none
+						text-transform uppercase
+						transition all 0.3s ease
+						&:after
+							border-bottom 0 solid #EFEFEF
+							border-left 1px solid #EFEFEF
+							content ""
+							left 15%
+							position absolute
+							right 15%
+							top 100%
+							transition all 0.3s ease
+						span
+							color #959595
+							display block
+							font-size: s
+							font-weight: 300
+							margin 0
+							padding 2px 0 5px 0
+							text-align: center
+							text-transform capitalize
+					.sub-menu
+						background #FFF
+						border-left 1px solid #CCC
+						height 0
+						left 0
+						margin 0
+						overflow hidden
+						padding 0
+						position: absolute
+						top 100%
+						transition all 0.3s ease
+						z-index: 10
+						li
+							list-style none
+							transition all 0.3s ease
+							&:hover
+								background: #F9F9F9
+								a
+									color color1
+							a
+								color #363636
+								display block
+								font-size: s
+								font-weight 400
+								padding 10px 15px
+								text-decoration: none
+								text-transform: uppercase
+								transition all 0.3s ease
+		
+		#mobile-nav-switch
+			float right		
+			display none									
+		.lbl-check-nav			
+			display none
+			position: absolute
+			transition transform 250ms ease-out 0s
+			right 15px
+			top 38px
+			&:hover
+				cursor: pointer
+			span
+				width 24px
+				height 24px
+				display block
+				background: url('../images/static/alter-menu.png') no-repeat scroll 0px 0px transparent;
+			
+		#mobile-nav-switch:checked ~ .movile-menu
+			height 313px
+			.list
+				padding 20px 0 20px 0
+
+		#mobile-nav-switch:checked ~ .lbl-check-nav
+			transform: rotate(-180deg);
+			span
+				background-position: 0px -24px;
+		.movile-menu
+			transition all 250ms ease-out 0s
+			display block		
+			overflow hidden
+			height 0	
+			
+			
+			.list
+				transition all 250ms ease-out 0s
+				padding 0
+				margin 0
+				li				
+					list-style none
+					padding 0 0 8px 0
+					margin 0 0 8px 0
+					border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+					a
+						
+						font-weight: 700
+						color #636363
+						display block
+						text-decoration: none
+						&:hover
+							color color1
+					.sub-mobile-menu
+						margin 10px 0 0 0
+						padding 0 0 0 20px
+						li
+							&:last-child
+								padding 0 0 0 0
+								margin 0 0 0 0
+								border-bottom: none
+							a
+								font-weight: 400
+								
+
+footer
+	background url('../images/static/footer-bg.png') repeat scroll left top #FFF
+	clear both
+	padding 40px 0 0 0 
+	.limit		
+		overflow hidden
+		padding 0 0 40px 0
+		
+		.widget			
+			box-sizing border-box
+			float left
+			margin 0
+			padding 30px
+			width 33.3333%
+			.title-widget
+				color #898989
+				font-size sm
+				font-weight 400
+				line-height 18px
+				margin 0 0 40px 0
+				position relative
+				&:before
+					background color1
+					content ""
+					height 18px
+					left -25px
+					position absolute
+					top 0
+					width 5px
+		.links
+			.list-links
+				padding 0
+				.item-link
+					border-bottom 1px solid #EAEAEA
+					font-size sm
+					list-style none
+					margin 0 0 7px 0
+					padding 0 0 7px 15px
+					position relative
+					text-transform uppercase
+					&:before
+						background #ACACAC
+						border-radius 50%
+						content ""
+						height 3px
+						left 0
+						position absolute
+						top 7px
+						width 3px
+					a
+						display block
+						color #636363
+						font-weight 700
+						text-decoration none
+						transition 0.3s all ease
+						&:hover
+							color color1
+		.contact
+			.contact-subject
+				color #636363
+				font-size 15px
+				font-weight: 700
+				line-height 20px
+				margin 0 0 10px 0
+			.contact-address				
+				margin 0 0 10px 0				
+				span
+					color #777777
+					display block
+					font-size sm
+					line-height 26px
+			.contact-tel
+				span
+					color #777777
+					font-size sm
+					font-weight 700
+					line-height 26px
+			.social-icons
+				border-top 1px solid #EAEAEA
+				padding 10px 0 0 0
+				.list-social
+					margin 0
+					padding 0					
+					width 100%
+					li
+						list-style none
+					.item-social
+						border-right 1px solid #EAEAEA
+						box-sizing border-box
+						float left
+						list-style none												
+						width 45px
+						transition 0.3s all ease
+						&:before
+							margin 0 0 0 12px
+					.mail
+						iconoBefore("\e945", #636363, #F8BA17)						
+					.twitter
+						iconoBefore("\ea91", #636363, #5EAADE)
+					.facebook
+						iconoBefore("\ea8c", #636363, #4862A3)
+						&:before
+							font-weight: 700
+		.gallery
+			.list-gallery
+				margin 0
+				padding 0
+				.item-gallery
+					box-sizing border-box
+					float left					
+					list-style none
+					margin 0 4px 4px 0
+					a
+						background #EAEAEA
+						display block
+						height 75px
+						overflow hidden
+						position relative
+						width 75px
+						img
+							display block
+							left 50%							
+							height 100%
+							position absolute
+							top 50%
+							transform translate(-50%, -50%)
+							transition 0.3s all ease
+							&:hover
+								transform translate(-50%, -50%) scale(1.3)
+	.copyright
+		background #111111
+		width 100%
+		.limit
+			background transparent
+			padding 20px 5px
+			p
+				font-size s
+				color #777777
+				line-height 16px
+				text-align center
+				font-weight 600
+				
+.limit
+	max-width 1140px
+	margin 0 auto
+	box-sizing border-box
+
+
+@media screen and (max-width: 1200px)
+		
+	.limit
+		max-width 970px
+		
+
+	
+@media screen and (max-width: 990px)
+		
+	.limit
+		max-width 750px
+	header
+		.limit
+			.logo
+				width 107px
+				overflow hidden
+			
+		
+	footer
+		.limit
+			.widget
+				width 100%
+				
+@media screen and (max-width: 770px)			
+
+	header
+		.limit
+			padding 0 15px 0 15px
+			.menu
+				visibility hidden
+				display none
+			.lbl-check-nav			
+				display block
+			.logo
+				width auto
+		.limit-nav-top
+			.nav-top
+				.text
+					display none
+	footer
+		.limit
+			padding 0 15px 0 10px
+			
+	.limit
+		padding 0 15px 0 15px
+		
+@media screen and (max-width: 320px)	
+	
+	header
+		.limit
+			padding 0 5px
+			.logo
+				width 47px
+				height 40px
+				a
+					img
+						width 110px
+						heignt 50px
+						position: relative
+						top 5px
+			.lbl-check-nav
+				top 12px
+
+
+	.limit
+		padding 0		

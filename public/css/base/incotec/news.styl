@@ -1,0 +1,99 @@
+
+
+
+.news-container	
+	.news-
+		.title-section
+			font-size x
+			margin 0
+			color #636363
+			padding 0 0 15px 0
+			border-bottom 1px solid rgba(0, 0, 0, 0.05)
+		.content-section
+			color #636363
+			font-size m
+		.posts
+			overflow hidden
+			box-sizing border-box
+			display inline-block //en chrome necesario
+			margin 0 -15px 60px -15px
+			.post						
+				box-sizing border-box
+				float left
+				margin 40px 0 0 0
+				padding 0 15px 0 15px
+				width 50%
+				&:nth-child(2n+3)
+					clear left
+				.image
+					width 100%
+					overflow hidden							
+					position relative	
+					height 150px		
+					background #EAEAEA
+
+					img
+						
+						height 100%
+						
+						transform translate(-50%, -50%)
+						position absolute								
+						top 50%
+						left 50%
+				.title
+					font-size 18px
+					margin 15px 0 10px 0							
+					a
+						color #363636
+						text-decoration none
+						display block
+						transition 0.3s all ease
+						&:hover
+							color color1
+				.datails
+					border-top 1px solid rgba(0, 0, 0, 0.05)
+					font-size s
+					padding 5px 0 0 0
+					font-weight 600
+					color color1
+					.date
+						color #777777
+						padding 0 5px 0 0
+						border-right 1px solid rgba(0, 0, 0, 0.05)
+					.category								
+						padding 0 5px 0 5px
+						border-right 1px solid rgba(0, 0, 0, 0.05)
+				.content
+					font-size sl
+					color #777777
+					font-weight 400
+					.more
+						font-size s
+						color color1
+						text-decoration none
+						transition 0.3s all ease 
+						font-weight 600
+						&:hover
+							color black
+									
+@media screen and (max-width: 990px)
+	.news-container	
+		.news-
+			.posts
+				.post
+					width 100%
+					display block
+					.image
+						height 250px
+
+@media screen and (max-width: 770px)	
+	.news-container	
+		.news-
+			.posts
+				.post
+					.image
+						height 150px
+
+			
+					
+						

@@ -1,0 +1,13 @@
+/**
+ * # Grilla
+ *
+ * La grilla se genera mediante un mixin.
+ * El mixin recibe los siguientes parámetros:
+ *   grid(número de columnas, margen(en em, rem, px, %, etc))
+ */
+
+$gridColumns ?= 12
+$gridCellMargin ?= .5em
+
+.Grid
+  grid($gridColumns, $gridCellMargin)

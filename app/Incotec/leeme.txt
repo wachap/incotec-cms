@@ -1,0 +1,39 @@
+repositories = consultas
+entities = registro, fila en la bd 
+managers = validaciones/guardar
+component = formularios
+
+
+en cada entidad
+->agregar un namespace
+
+en cada seed
+->agregar use
+
+y editar "composer.json"
+
+COMANDO
+$ composer dump-autoload
+
+problema con Eloquent
+-opcion1:
+agregar esta linea de codigo
+use Illuminate\Database\Eloquent;
+-opcion2
+agregar eslash invertido ala clase
+\Eloquent
+
+
+PROBLEMA 1
+con el modelo User al usar AUTH
+
+app/config/auth.php
+
+cambiar la linea donde dice "MODEL"
+
+
+ERRORES CON EXCEPCION MANAGERS
+editar app/start/global
+App::error(function (\HireMe\Managers\ValidationException $exception) {
+    return Redirect::back()->withInput()->withErrors($exception->getErrors());
+});
