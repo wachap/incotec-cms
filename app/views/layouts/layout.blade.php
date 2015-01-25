@@ -7,30 +7,22 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title> @yield('title') | Incotec</title>	
-	<link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />	
-	
-	<meta name="description" content="Incotec es una institución que tiene por finalidad orientar y elevar el nivel académico profesional y laboral de toda la población y así mejorar la calidad de educación de la niñez, juventud y adultos en general." />
+	<title> @yield('title') | Incotec</title>
+	<link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+
+	@yield('meta-description')
 
 	<!-- begin og-tags -->
-	@section('og-facebook')
-	<meta property="og:description" content="Incotec es una institución que tiene por finalidad orientar y elevar el nivel académico profesional." />
-	<meta property="og:title" content="Incotec"/>
-	<meta property="og:image" content="{{ asset('images/static/incotec-nosotros.jpg') }}" />
-	<meta property="og:type" content="website"/>
-	<meta property="og:url" content="{{ asset('') }}" />
-	@show	
-
+	@yield('og-facebook')
 	<meta property="og:site_name" content="Incotec" />
-	<meta property="og:url" content="{{ asset('') }}" />
 	<!-- end og-tags -->
-	
+
 	<!-- Estilos -->
 	@section('style')
-	{{ HTML::style('css/index.css'); }} 	
+	{{ HTML::style('css/index.css'); }}
 	@show
 	<!-- end Estilos -->
-	
+
 	@yield('scripts-top')
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -45,11 +37,11 @@
 </head>
 
 <body>
-	<header>	
+	<header>
 		@section('header')
 
 			@if (Auth::check())
-			<div class="limit-nav-top">	
+			<div class="limit-nav-top">
 				<div class="nav-top">
 					<span class="text">Bienvenido administrador</span>
 
@@ -62,7 +54,7 @@
 							@if ( Auth::user()->type == 'admin')
 								<li><a href="{{ route('sign_up') }}">Crear usuario</a></li>
 								<li><a href="{{ route('usuarios') }}">Ver usuarios</a></li>
-							@endif							
+							@endif
 
 							<li><a href="{{ route('logout') }}">Salir</a></li>
 						</ul>
@@ -71,7 +63,7 @@
 			</div>
 			@else
 
-			@endif			
+			@endif
 
 			<div class="limit">
 
@@ -167,9 +159,9 @@
 						@foreach ($latest_photos as $photo)
 
 						<li class="item-gallery">
-							<?php $src = basename( $photo->image_url ).PHP_EOL;									
-							$yearPath  = dirname( $photo->image_url ).PHP_EOL;									
-							$year      = basename( $yearPath ).PHP_EOL; ?>  
+							<?php $src = basename( $photo->image_url ).PHP_EOL;
+							$yearPath  = dirname( $photo->image_url ).PHP_EOL;
+							$year      = basename( $yearPath ).PHP_EOL; ?>
 
 							<a href="{{ route('gallery', [$photo->gallery->slug, $photo->gallery_id]) }}">
 								<img src="{{ asset('image/'.$year.'/'.$src.'/150') }}"  alt="{{ $photo->title }}" />
@@ -187,11 +179,11 @@
 				<div class="limit">
 					<p>&copy;2015 Desarrollado por <a class="by" target="_blank" href="https://www.facebook.com/nwochap">Gean Carlos</a> y <a class="by" target="_blank" href="https://www.facebook.com/roxsy.velasquez">Roxsy</a>.</p>
 				</div>
-			</div>	
+			</div>
 
 		@show
 
-	
+
 
 	</footer>
 

@@ -1,9 +1,13 @@
 @extends('layouts.layout')
 
+@section('scripts-bottom')
+	<script src="//cdn.ckeditor.com/4.4.6/standard/ckeditor.js"></script>
+@stop
+
 <?php
-	if (isset($course)):		
+	if (isset($course)):
 		$form_data    = ['route' => ['carrera_update', $course->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'form', 'files' => 'true'];
-		$title        = $course->title;		
+		$title        = $course->title;
 		$instructor   = $course->instructor;
 		$address      = $course->address;
 		$course_level = $course->course_level;
@@ -17,10 +21,10 @@
 		$instructor   = null;
 		$address      = null;
 		$course_level = 'profesional';
-		$body         = null;	
-		$course       = null;	
+		$body         = null;
+		$course       = null;
 
-		$action    = 'Crear';        
+		$action    = 'Crear';
 
 	endif;
 ?>
@@ -41,12 +45,12 @@
 
 		<h3 class="form-title">{{ $action }} Carrera</h3>
 
-		@include('layouts.errors')			
+		@include('layouts.errors')
 
 		<div class="form-content">
 			{{ Form::label('title', 'Titulo', ['class' => 'form-label'])}}
 			{{ Form::input('text', 'title', $title, ['class' => 'form-control', 'required'=>'true']) }}
-		</div>	
+		</div>
 
 		<div class="form-content">
 			{{ Form::label('instructor', 'Instructor', ['class' => 'form-label'])}}
@@ -70,7 +74,7 @@
 
 		<div class="form-content">
 			{{ Form::label('body', 'Cuerpo del carrera', ['class' => 'form-label']) }}
-			{{ Form::textarea("body", $body, ['class' => 'form-control', 'required' => 'true']) }}
+			{{ Form::textarea("body", $body, ['class' => 'form-control ckeditor', 'required' => 'true']) }}
 		</div>
 
 		<div class="form-content">

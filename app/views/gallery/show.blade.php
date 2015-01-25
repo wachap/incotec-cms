@@ -4,9 +4,21 @@
 	{{ $gallery->title }}
 @stop
 
+@section('meta-description')
+	<meta name="description" content="{{ content_preview($gallery->body, 150) }}" />
+@stop
+
+@section('og-facebook')
+	<meta property="og:description" content="{{ content_preview($gallery->body, 150) }}" />
+	<meta property="og:title" content="{{ $gallery->title }}"/>
+	<meta property="og:image" content="{{{ asset( isset($gallery->photos->last()->image_url) ? $gallery->photos->last()->image_url : 'images/static/incotec-nosotros.jpg' ) }}}" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="{{ route('gallery', [$gallery->slug, $gallery->id]) }}" />
+@stop
+
 @section('style')
 	@parent
-	{{ HTML::style('css/lightbox.css'); }}	
+	{{ HTML::style('css/lightbox.css'); }}
 @stop
 
 @section('scripts-bottom')
@@ -14,7 +26,6 @@
 	{{ HTML::script('js/jquery.js'); }}
 	{{ HTML::script('js/lightbox.min.js'); }}
 @stop
-
 
 @section('content')
 
@@ -31,11 +42,12 @@
 		@foreach ($gallery->photos as $photo)
 			<?php $n = $n + 1 ?>
 		@endforeach
+
 		<div class="gallery-single-container">
 			@if (Session::has('confirm'))
 				<div class="alert alert-success ">
 					{{ Session::get('confirm') }}
-				</div>      
+				</div>
 			@endif
 			@include('layouts.errors')
 
@@ -49,54 +61,49 @@
 							{{ Form::close() }}
 						</div>
 					</div>
-				@endif	
+				@endif
 
 			<h1 class="title">{{ $gallery->title }} <span class="label-info">{{ $n }} Fotos</span></h1>
 
-			<div class="photos-container image-set">				
+			<div class="photos-container image-set">
 			@foreach ($gallery->photos as $photo)
-				<?php $src = basename( $photo->image_url ).PHP_EOL; 
-				$yearPath  = dirname( $photo->image_url ).PHP_EOL;
-				$year      = basename( $yearPath ).PHP_EOL; ?>
-
 				@if ( Auth::check() )
-				<figure class="photo">
-					{{ Form::model($photo, ['route' => ['photo_update', $photo->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'form', 'files' => 'true' ]) }}
-						
-						<a href="{{ asset($photo->image_url) }}" data-lightbox="roadtrip" data-title="{{ $photo->title }}">
-							<img src="{{ asset( 'image/'.$year.'/'.$src.'/250' ) }}" alt="{{ $photo->title }}">
-						</a>
-						<div class="form-content">
-							{{ Form::label('image_url', 'Eliga una imagen', ['class' => 'form-label']) }}
-							{{ Form::file("image_url", ['class' => 'form-control']) }}
-						</div>
-						<div class="form-content">
-							{{ Form::label('title', 'Descriptcion', ['class' => 'form-label'])}}
-							{{ Form::text( 'title', $photo->title, ['class' => 'form-control', 'required' => true] ) }}
-						</div>
-						<div class="form-content">
-							{{ Form::submit('Editar', ['class' => 'btn btn-primary']) }}
-							{{ Form::close() }}
-							{{ Form::open(['route' => ['photo_destroy', $photo->id], 'method' => 'delete', 'class' => 'is-inline-block']) }}
-									{{ Form::submit('Eliminar', ['class' => 'btn btn-danger']) }}
-							{{ Form::close() }}
-						</div>
-				</figure>
-				@else
+					<figure class="photo">
+						{{ Form::model($photo, ['route' => ['photo_update', $photo->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'form', 'files' => 'true' ]) }}
 
-				<figure class="photo">
-					<a href="{{ asset($photo->image_url) }}" data-lightbox="roadtrip" data-title="{{ $photo->title }}"><img src="{{ asset('image/'.$year.'/'.$src.'/250') }}" alt="{{ $photo->title }}"></a>
-					<figcaption>{{ $photo->title }}</figcaption>
-				</figure>	
-					@endif
-				
-			@endforeach				
+							<a href="{{ asset($photo->image_url) }}" data-lightbox="roadtrip" data-title="{{ $photo->title }}">
+								<img src="{{ asset( get_urlImage($photo->image_url, 250) ) }}" alt="{{ $photo->title }}">
+							</a>
+							<div class="form-content">
+								{{ Form::label('image_url', 'Eliga una imagen', ['class' => 'form-label']) }}
+								{{ Form::file("image_url", ['class' => 'form-control']) }}
+							</div>
+							<div class="form-content">
+								{{ Form::label('title', 'Descriptcion', ['class' => 'form-label'])}}
+								{{ Form::text( 'title', $photo->title, ['class' => 'form-control', 'required' => true] ) }}
+							</div>
+							<div class="form-content">
+								{{ Form::submit('Editar', ['class' => 'btn btn-primary']) }}
+								{{ Form::close() }}
+								{{ Form::open(['route' => ['photo_destroy', $photo->id], 'method' => 'delete', 'class' => 'is-inline-block']) }}
+										{{ Form::submit('Eliminar', ['class' => 'btn btn-danger']) }}
+								{{ Form::close() }}
+							</div>
+					</figure>
+				@else
+					<figure class="photo">
+						<a href="{{ asset($photo->image_url) }}" data-lightbox="roadtrip" data-title="{{ $photo->title }}"><img src="{{ asset( get_urlImage($photo->image_url, 250) ) }}" alt="{{ $photo->title }}"></a>
+						<figcaption>{{ $photo->title }}</figcaption>
+					</figure>
+				@endif
+
+			@endforeach
 			</div>
 
 			@if ( Auth::check() )
 				{{ Form::open( ['route' => ['photo_store', $gallery->id], 'method' => 'post', 'class' => 'form is-inline-block last-form', 'files' => 'true'] ) }}
-					<p class="form-title">Agregar foto</p>					
-					
+					<p class="form-title">Agregar foto</p>
+
 					<div class="form-content">
 						{{ Form::label('image_url', 'Eliga una imagen', ['class' => 'form-label']) }}
 						{{ Form::file("image_url", ['class' => 'form-control', 'required' => true]) }}
@@ -111,7 +118,7 @@
 						{{ Form::submit('Registrar nueva foto', ['class' => 'btn btn-succes']) }}
 					</div>
 
-				{{ Form::close() }}	
+				{{ Form::close() }}
 			@endif
 		</div>
 	</div>

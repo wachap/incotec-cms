@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-	Plana-Administrativa
+	Plana Administrativa
 @stop
 
 @section('content')
@@ -18,7 +18,7 @@
 
 			<div class="leadership-">
 
-				@if (Auth::check())	
+				@if (Auth::check())
 					<div class="crud-container new-container">
 						<div class="pull-right">
 							<a href="{{ route('leader_create') }}" class="btn btn-succes">Nuevo trabajador</a>
@@ -33,7 +33,7 @@
 					@if (Session::has('confirm'))
 						<div class="alert alert-success ">
 							{{ Session::get('confirm') }}
-						</div>      
+						</div>
 					@endif
 
 					<h3 class="subtitle">Director</h3>
@@ -54,14 +54,10 @@
 							@endif
 
 							<figure class="photo">
-								<?php $src = basename( $director->image_url ).PHP_EOL;
-								$yearPath  = dirname( $director->image_url ).PHP_EOL;
-								$year      = basename( $yearPath ).PHP_EOL; ?>
-
-								<img src="{{ asset( $director->image_url ) }}" alt="{{ $director->full_name }}" />
+								<img src="{{ asset( get_urlImage($director->image_url, 200) ) }}" alt="{{ $director->full_name }}" />
 							</figure>
 
-							<div class="info-content">	
+							<div class="info-content">
 								<div class="info">
 									<h4 class="title">{{ $director->full_name }}, <small>{{ $director->job_type }}</small> </h4>
 
@@ -92,7 +88,7 @@
 							@endif
 
 							<figure class="photo">
-								<img src="{{ asset($profesor->image_url) }}" alt="{{ $profesor->full_name }}" />
+								<img src="{{ asset( get_urlImage($profesor->image_url, 200) ) }}" alt="{{ $profesor->full_name }}" />
 							</figure>
 
 							<div class="info-content">
@@ -125,10 +121,10 @@
 							@endif
 
 							<figure class="photo">
-								<img src="{{ asset($secretaria->image_url) }}" alt="{{ $secretaria->full_name }}" />
+								<img src="{{ asset( get_urlImage($secretaria->image_url, 200) ) }}" alt="{{ $secretaria->full_name }}" />
 							</figure>
 
-							<div class="info-content">	
+							<div class="info-content">
 								<div class="info">
 									<h4 class="title">{{ $secretaria->full_name }}, <small>{{ $secretaria->job_type }}</small> </h4>
 
@@ -145,9 +141,9 @@
 			</div>
 
 			<div class="extra-container">
-				@include('layouts.useful_links')					
+				@include('layouts.useful_links')
 				@include('layouts.noticias')
-			</div>	
+			</div>
 
 		</div>
 

@@ -1,8 +1,3 @@
-// ;( function( $, window, undefined )
-// {
-// 	$.fn.carousel = function() 
-// 	{
-
 
 items 		= $(".carousel-inner").children();
 itemsLength = items.length;
@@ -13,16 +8,16 @@ interval 	= setInterval(moveRight, 4000);
 interval;
 
 $(".carousel-right").on( "click", function(event)
-{  	
+{
 	event.preventDefault();
 	clearInterval(interval);
 	moveRight();
 });
 
-function moveRight () 
+function moveRight ()
 {
 
-	if (!isMoving) 
+	if (!isMoving)
 	{
 		if (currentItem==itemsLength-1)
 		{
@@ -32,10 +27,10 @@ function moveRight ()
 		};
 
 		isMoving = true;
-		
+
 		$(items).each(function(key, value)
 		{
-			if (key == currentItem) 
+			if (key == currentItem)
 			{
 				$(items[key]).animate({opacity: 1}, 500, function()
 				{
@@ -44,46 +39,51 @@ function moveRight ()
 			} else {
 				$(this).animate({opacity: 0}, 500);
 			};
-			
+
 		});
-	};	
+	};
 }
 
 $(".carousel-left").on( "click", function(event)
-{  
-	event.preventDefault();	
+{
+	event.preventDefault();
 	clearInterval(interval);
 	moveLeft();
 });
 
-function moveLeft () 
+function moveLeft ()
 {
-	if (!isMoving) 
+	if (!isMoving)
 	{
 		if (currentItem==0)
 		{
 			currentItem = itemsLength - 1;
 		} else {
-			currentItem = currentItem - 1;	
+			currentItem = currentItem - 1;
 		};
 
 		isMoving = true;
-		
-		for (var i = 0; i < itemsLength; i++) 
-		{						
-			if (i == currentItem) 
+
+		for (var i = 0; i < itemsLength; i++)
+		{
+			if (i == currentItem)
 			{
 				$(items[i]).animate({opacity: 1}, function()
 				{
 					isMoving = false;
 				});
 			} else {
-				$(items[i]).animate({opacity: 0});	
-			};		
+				$(items[i]).animate({opacity: 0});
+			};
 
 		};
 	};
 }
+// ;( function( $, window, undefined )
+// {
+// 	$.fn.carousel = function()
+// 	{
+
 
 
 

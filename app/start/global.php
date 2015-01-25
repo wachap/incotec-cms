@@ -85,8 +85,24 @@ App::down(function()
 require app_path().'/filters.php';
 
 
-// 
+// Custom
+
 function is_admin()
 {
     return Auth::check() && Auth::user()->type == 'admin';
+}
+
+function content_preview( $body, $chr=100 )
+{
+	$textoA = substr( strip_tags( $body ), 0, $chr).'...';
+	$textoB = str_replace(chr(13), "", $textoA);
+	return str_replace([chr(10), '&nbsp;'],' ',$textoB);
+}
+
+function get_urlImage( $url, $height )
+{
+	$src      = basename( $url ).PHP_EOL;
+	$yearPath = dirname( $url ).PHP_EOL;
+	$year     = basename( $yearPath ).PHP_EOL;
+	return 'image/'.$year.'/'.$src.'/'.$height;
 }

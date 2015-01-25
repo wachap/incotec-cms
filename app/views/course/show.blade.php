@@ -4,12 +4,16 @@
 	{{ $course->title }}
 @stop
 
+@section('meta-description')
+	<meta name="description" content="{{ content_preview($course->body, 150) }}" />
+@stop
+
 @section('og-facebook')
-	<meta property="og:description" content="{{ substr($course->body,0,150).'...' }}" />
+	<meta property="og:description" content="{{ content_preview($course->body, 150) }}" />
 	<meta property="og:title" content="{{ $course->title }}"/>
 	<meta property="og:image" content="{{ asset( $course->image_url ) }}" />
 	<meta property="og:type" content="article" />
-	<meta property="og:url" content="{{ asset('index.php/carrera/'.$course->slug.'/'.$course->id) }}" />
+	<meta property="og:url" content="{{ route('course', [$course->slug, $course->id]) }}" />
 @stop
 
 @section('content')
@@ -29,7 +33,7 @@
 				@if (Session::has('confirm'))
 					<div class="alert alert-success ">
 						{{ Session::get('confirm') }}
-					</div>      
+					</div>
 				@endif
 
 				@include('layouts.errors')
@@ -44,7 +48,7 @@
 							{{ Form::close() }}
 						</div>
 					</div>
-				@endif					
+				@endif
 
 				<h1 class="title">{{ $course->title }}</h1>
 
@@ -59,7 +63,7 @@
 					<dt>Grado</dt><dd>{{ $course->course_level }}</dd>
 				</dl>
 
-				<p class="content">{{ str_replace(chr(13),"<br>",$course->body) }}</p>
+				<div class="body" >{{ $course->body }}</div>
 
 				<h3>Documentos del curso:</h3>
 
@@ -78,7 +82,7 @@
 
 							<div class="form-content">
 								{{ Form::input('text', 'description', $download->description, ['class' => 'form-control', 'required'=>'true', 'placeholder' => 'Escribe la descripcion de la descarga']) }}
-							</div>							 
+							</div>
 
 							<div class="form-content">
 								{{ Form::label('file_url', 'Eliga un documento', ['class' => 'form-label']) }}
@@ -105,16 +109,16 @@
 							</a>
 						</li>
 
-						@endif	
+						@endif
 
-					@endforeach					
+					@endforeach
 
 				</ul>
 
 				@if ( Auth::check() )
 					{{ Form::open( ['route' => ['download_store', $course->id], 'method' => 'post', 'class' => 'form is-inline-block last-form', 'files' => true] ) }}
 
-						<p class="form-title">Agregar descarga</p>						
+						<p class="form-title">Agregar descarga</p>
 
 						<div class="form-content">
 							{{ Form::select('file_type', [ 'material' => 'Material', 'modulos' => 'Modulos', 'horario' => 'Horario' ], 'material', ['class' => 'form-control', 'required'=>'true'] ) }}
@@ -133,16 +137,16 @@
 							{{ Form::submit('Registrar nueva descarga', ['class' => 'btn btn-succes']) }}
 						</div>
 
-					{{ Form::close() }}	
+					{{ Form::close() }}
 				@endif
 			</article>
 
 			<div class="extra-container">
 				@include('layouts.useful_links')
-				@include('layouts.activities')	
+				@include('layouts.activities')
 			</div>
 
-		</div>		
+		</div>
 
 	</div>
 @stop

@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-	Galerias
+	Nosotros
 @stop
 
 @section('content')
@@ -9,10 +9,10 @@
 
 		<div class="breadcrumbs">
 			<ol class="list">
-				<li class="link"><a href="{{ route('home') }}">Home</a></li>	
+				<li class="link"><a href="{{ route('home') }}">Home</a></li>
 				<li class="active">Institución</li>
 			</ol>
-		</div>			
+		</div>
 
 		<div class="nosotros-container">
 			<div class="nosotros-">

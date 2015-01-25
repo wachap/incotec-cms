@@ -12,11 +12,11 @@
 		$body = $noticia->body;
 
 	else:
-		$body = null;	
-		$noticia = null;	
+		$body = null;
+		$noticia = null;
 		$title = null;
 		$form_data = ['route' => 'noticia_store', 'method' => 'POST', 'role' => 'form', 'class' => 'form', 'files' => 'true'];
-		$action    = 'Crear';        
+		$action    = 'Crear';
 
 	endif;
 ?>
@@ -36,7 +36,7 @@
 
 			<h3 class="form-title">{{ $action }} Noticia</h3>
 
-			@include('layouts.errors')			
+			@include('layouts.errors')
 
 			<div class="form-content">
 				{{ Form::label('title', 'Titulo', ['class' => 'form-label'])}}

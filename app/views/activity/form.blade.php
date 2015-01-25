@@ -1,15 +1,19 @@
 @extends('layouts.layout')
 
+@section('scripts-bottom')
+	<script src="//cdn.ckeditor.com/4.4.6/standard/ckeditor.js"></script>
+@stop
+
 <?php
 	if ( isset($activity) ):
 
-		$form_data  = ['route' => ['evento_update', $activity->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'form', 'files' => true];							
-		$title      = $activity->title;		
-		$date_begin = $activity->date_begin;		
-		$date_end   = $activity->date_end;		
-		$time       = $activity->time;		
-		$body       = $activity->body;		
-		$programme  = $activity->programme;	
+		$form_data  = ['route' => ['evento_update', $activity->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'form', 'files' => true];
+		$title      = $activity->title;
+		$date_begin = $activity->date_begin;
+		$date_end   = $activity->date_end;
+		$time       = $activity->time;
+		$body       = $activity->body;
+		$programme  = $activity->programme;
 
 		$action    = 'Editar';
 
@@ -20,11 +24,11 @@
 		$date_begin = null;
 		$date_end   = null;
 		$time       = '00:00 - 00:00';
-		$body       = null;	
+		$body       = null;
 		$programme  = null;
 		$activity   = null;
-		
-		$action    = 'Crear'; 
+
+		$action    = 'Crear';
 
 	endif;
 ?>
@@ -45,19 +49,19 @@
 
 			<h3 class="form-title">{{ $action }} Evento</h3>
 
-			@include('layouts.errors')			
+			@include('layouts.errors')
 
 			<div class="form-content">
 				{{ Form::label('title', 'Titulo', ['class' => 'form-label']) }}
 				{{ Form::input('text', 'title', $title, ['class' => 'form-control', 'required'=>'true']) }}
-			</div>		
+			</div>
 
-			<div class="form-content">
+			<div class="form-content form-left">
 				{{ Form::label('date_begin', 'Eliga la fecha de inicio', ['class' => 'form-label']) }}
 				{{ Form::input('date', 'date_begin', $date_begin, ['class' => 'form-control', 'required'=>'true']) }}
 			</div>
 
-			<div class="form-content">
+			<div class="form-content form-right">
 				{{ Form::label('date_end', 'Eliga la fecha de finalizacion', ['class' => 'form-label']) }}
 				{{ Form::input('date', 'date_end', $date_end, ['class' => 'form-control', 'required'=>'true']) }}
 			</div>
@@ -69,12 +73,12 @@
 
 			<div class="form-content">
 				{{ Form::label('body', 'Cuerpo del evento', ['class' => 'form-label']) }}
-				{{ Form::textarea("body", $body, ['class' => 'form-control', 'required'=>'true']) }}
+				{{ Form::textarea("body", $body, ['class' => 'form-control ckeditor', 'required'=>'true']) }}
 			</div>
 
 			<div class="form-content">
 				{{ Form::label('programme', 'Cuerpo del programa', ['class' => 'form-label']) }}
-				{{ Form::textarea("programme", $programme, ['class' => 'form-control', 'required'=>'true']) }}
+				{{ Form::textarea("programme", $programme, ['class' => 'form-control ckeditor', 'required'=>'true']) }}
 			</div>
 
 			<div class="form-content">

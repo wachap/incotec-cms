@@ -38,7 +38,7 @@
 							<a href="{{ route('noticia_create') }}" class="btn btn-succes">Nueva noticia</a>
 						</div>
 					</div>
-				@endif			 	
+				@endif
 
 				<h2 class="title-section">Noticias</h2>
 
@@ -61,12 +61,8 @@
 								</div>
 							@endif
 
-							<?php $src = basename( $noticia->image_url ).PHP_EOL; 
-							$yearPath  = dirname( $noticia->image_url ).PHP_EOL;
-							$year      = basename( $yearPath ).PHP_EOL; ?>
-
 							<figure class="image">
-								<img src="{{ asset('image/'.$year.'/'.$src.'/300') }}" alt="{{ $noticia->title }}">
+								<img src="{{ asset( get_urlImage($noticia->image_url, 300) ) }}" alt="{{ $noticia->title }}">
 							</figure>
 
 							<h3 class="title"><a href="{{ route('noticia', [$noticia->slug, $noticia->id]) }}" rel="bookmark">{{ $noticia->title }}</a></h3>
@@ -74,12 +70,12 @@
 							<div class="datails">
 								<span class="date">{{ $noticia->created_at->format('M d, Y') }}</span>
 								<span class="category">Noticia</span>
-								
+
 								<!--  DISQUS COMENTARIOS  -->
-								<span class="comments disqus-comment-count" data-disqus-url=" {{ asset('index.php/noticia/'.$noticia->slug.'/'.$noticia->id) }} "> # Comentarios</span>					
+								<span class="comments disqus-comment-count" data-disqus-url=" {{ asset('index.php/noticia/'.$noticia->slug.'/'.$noticia->id) }} "> # Comentarios</span>
 							</div>
 
-							<p class="content">{{ substr( strip_tags($noticia->body), 0,100).'...' }} <a rel="bookmark" href="{{ route('noticia', [$noticia->slug, $noticia->id]) }}" class="more">VER MÁS</a></p>
+							<p class="content">{{ content_preview( $noticia->body ) }} <a rel="bookmark" href="{{ route('noticia', [$noticia->slug, $noticia->id]) }}" class="more">VER MÁS</a></p>
 
 						</article>
 					@endforeach
@@ -89,9 +85,9 @@
 
 			</div>
 
-			<div class="extra-container">	
+			<div class="extra-container">
 				@include('layouts.useful_links')
-				@include('layouts.activities')	
+				@include('layouts.activities')
 			</div>
 
 		</div>

@@ -9,7 +9,7 @@
 
 		<div class="breadcrumbs">
 			<ol class="list">
-				<li class="link"><a href="{{ route('home') }}">Home</a></li>	
+				<li class="link"><a href="{{ route('home') }}">Home</a></li>
 				<li class="active">Eventos</li>
 			</ol>
 		</div>
@@ -17,20 +17,20 @@
 		<div class="events-container">
 			<div class="events-">
 
-			@include('layouts.alert-warning')	
+			@include('layouts.alert-warning')
 
 			@if (Auth::check())
 				<div class="crud-container new-container">
 					<div class="pull-right">
 						<a href="{{ route('evento_create') }}" class="btn btn-succes">Nuevo evento</a>
 					</div>
-				</div>				
+				</div>
 			@endif
 
-				<h2 class="title-section">Próximos Eventos</h2>				
+				<h2 class="title-section">Próximos Eventos</h2>
 
-				<section class="posts">		
-				
+				<section class="posts">
+
 				@foreach ($activities as $activity)
 					<article class="post">
 
@@ -53,7 +53,7 @@
 						<span class="date">{{ date("M d, Y",strtotime($activity->date_begin)) }}</span>
 						<span class="time">{{ $activity->time }}</span>
 
-						<p class="content">{{ substr( $activity->body,0,200 ).'...' }}<a rel="bookmark" href="{{ route('activity', [$activity->slug, $activity->id]) }}" class="more"> VER MÁS</a>
+						<p class="content">{{ content_preview($activity->body) }}<a rel="bookmark" href="{{ route('activity', [$activity->slug, $activity->id]) }}" class="more"> VER MÁS</a>
 						</p>
 
 					</article>
@@ -63,13 +63,13 @@
 
 				{{ $activities->links() }}
 
-			</div>		
+			</div>
 
 			<div class="extra-container">
 				@include('layouts.useful_links')
-				@include('layouts.noticias')	
+				@include('layouts.noticias')
 			</div>
 		</div>
-		
-	</div>	
+
+	</div>
 @stop

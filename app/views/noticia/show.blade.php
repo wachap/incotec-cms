@@ -4,18 +4,20 @@
 	{{ $noticia->title }}
 @stop
 
+@section('meta-description')
+	<meta name="description" content="{{ content_preview($noticia->body, 150) }}" />
+@stop
+
 @section('og-facebook')
-	<?php 	$OgDesc 		= substr( strip_tags( $noticia->body ), 0, 150 );
-			$OgDescFinal    = str_replace(chr(13),"",$OgDesc); ?>
-	<meta property="og:description" content="{{ str_replace([chr(10), '&nbsp;'],' ',$OgDescFinal) }}" />
+	<meta property="og:description" content="{{ content_preview($noticia->body, 150) }}" />
 	<meta property="og:title" content="{{ $noticia->title }}"/>
 	<meta property="og:image" content="{{ asset( $noticia->image_url ) }}" />
 	<meta property="og:type" content="article" />
-	<meta property="og:url" content="{{ asset( 'index.php/noticia/'.$noticia->slug.'/'.$noticia->id ) }}" />
+	<meta property="og:url" content="{{ route('noticia', [$noticia->slug, $noticia->id]) }}" />
 @stop
 
 @section('content')
-	<div class="container limit">		
+	<div class="container limit">
 
 		<div class="breadcrumbs">
 			<ol class="list">
@@ -33,7 +35,7 @@
 				@if ( Session::has('confirm') )
 					<div class="alert alert-success ">
 						{{ Session::get('confirm') }}
-					</div>      
+					</div>
 				@endif
 
 				@if ( Auth::check() )
@@ -47,11 +49,7 @@
 							{{ Form::close() }}
 						</div>
 					</div>
-				@endif	
-
-				<?php $src = basename( $noticia->image_url ).PHP_EOL; 
-				$yearPath  = dirname( $noticia->image_url ).PHP_EOL;
-				$year      = basename( $yearPath ).PHP_EOL; ?>
+				@endif
 
 				<figure class="image">
 					<img src="{{ asset( $noticia->image_url ) }}" alt="$noticia->title">
@@ -68,24 +66,24 @@
 					<!-- DISQUS # COMENTARIOS -->
 				</div>
 
-				<div class="body" >{{ $noticia->body }}</div>				
-					
+				<div class="body" >{{ $noticia->body }}</div>
+
 				</article>
 
 				<div class="comentarios" >
-			   		<div id="disqus_thread"></div>				    
+			   		<div id="disqus_thread"></div>
 				</div>
 
 			</div>
 
 			<div class="extra-container">
 				@include('layouts.useful_links')
-				@include('layouts.activities')	
+				@include('layouts.activities')
 			</div>
 
 		</div>
 	</div>
-	
+
 	{{-- DISQUS START --}}
 	<script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

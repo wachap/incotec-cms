@@ -1,20 +1,19 @@
 @extends('layouts.layout')
 
-<?php 	
-	$OgDesc      = substr( strip_tags( $activity->body ), 0, 150 );
-	$OgDescFinal = str_replace(chr(13), "", $OgDesc); 
-?>
-
 @section('title')
 	{{ $activity->title }}
 @stop
-	
+
+@section('meta-description')
+	<meta name="description" content="{{ content_preview($activity->body, 150) }}" />
+@stop
+
 @section('og-facebook')
-	<meta property="og:description" content="{{ str_replace([chr(10), '&nbsp;'],' ',$OgDescFinal) }}" />		
+	<meta property="og:description" content="{{ content_preview($activity->body, 150) }}" />
 	<meta property="og:title" content="{{ $activity->title }}" />
 	<meta property="og:image" content="{{ asset( 'images/static/incotec-nosotros.jpg' ) }}" />
 	<meta property="og:type" content="article" />
-	<meta property="og:url" content="{{ asset('index.php/evento/'.$activity->slug.'/'.$activity->id) }}" />
+	<meta property="og:url" content="{{ route('activity', [$activity->slug, $activity->id]) }}" />
 @stop
 
 @section('content')
@@ -28,7 +27,7 @@
 			</ol>
 		</div>
 
-		<div class="events-single-container">			
+		<div class="events-single-container">
 
 			<article class="events-single">
 
@@ -50,7 +49,7 @@
 
 						</div>
 					</div>
-				@endif	
+				@endif
 
 				<h1 style="font-weight: 700;color: #636363;font-size: 28px;" class="title-event">{{ $activity->title }}</h1>
 
@@ -59,15 +58,14 @@
 					<span class="divider">A</span>
 					<span class="to">{{ date("M d, Y",strtotime($activity->date_end)) }}</span>
 					<span class="time">{{ $activity->time }}</span>
-				</div>			
-
-				<p>{{ str_replace(chr(13),"<br>",$activity->body) }}</p>			
+				</div>
+				<div class="body" >{{ $activity->body }}</div>
 
 				<div class="programme">
 
 					<h3>Programación</h3>
 
-					<p>{{ str_replace(chr(13),"<br>",$activity->programme) }}</p>
+					<div class="body" >{{ $activity->programme }}</div>
 
 					<table class="programme-table">
 
@@ -76,21 +74,17 @@
 								<th>#</th>
 								<th>Actividad</th>
 								<th>Horario</th>
-							</tr>		
+							</tr>
 						</thead>
 
 						<tbody>
 							<?php $n=0; ?>
 
-							@foreach ( $activity->programmes as $programme)							
+							@foreach ( $activity->programmes as $programme)
 
 							<?php $n=$n + 1; ?>
 
-
-
 							@if (Auth::check())
-
-							
 
 							<tr>
 
@@ -108,12 +102,12 @@
 										{{ Form::input('text', 'time', $programme->time, ['class' => 'form form-control', 'required'=>'true']) }}
 									</div>
 								</td>
-					
+
 								<td>
-									<div class="icon-edit">									
+									<div class="icon-edit">
 										{{ Form::submit('E', ['class' => 'btn btn-primary', 'style' => 'height: 30px;']) }}
 									</div>
-									
+
 								{{ Form::close() }}
 
 								{{ Form::open(['route' => ['programme_destroy', $programme->id], 'method' => 'delete', 'class' => 'is-inline-block']) }}
@@ -136,7 +130,7 @@
 
 							@endforeach
 
-						</tbody>	
+						</tbody>
 
 					</table>
 
@@ -157,8 +151,8 @@
 							{{ Form::submit('Registrar nueva actividad', ['class' => 'btn btn-succes']) }}
 						</div>
 
-					{{ Form::close() }}	
-					@endif				
+					{{ Form::close() }}
+					@endif
 
 				</div>
 
@@ -166,7 +160,7 @@
 
 			<div class="extra-container">
 				@include('layouts.useful_links')
-				@include('layouts.noticias')	
+				@include('layouts.noticias')
 			</div>
 		</div>
 

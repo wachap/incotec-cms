@@ -17,7 +17,7 @@
 
 		<div class="galleries-container">
 
-			<div class="gallery-">		
+			<div class="gallery-">
 
 				@if (Auth::check())
 					<div class="crud-container new-container">
@@ -29,9 +29,9 @@
 
 				<h2 class="title-section">Galerias</h2>
 
-				<div class="albums">	
+				<div class="albums">
 					@foreach ($galleries as $gallery)
-						<div class="album">	
+						<div class="album">
 
 							@if (Auth::check())
 								<div class="crud-container">
@@ -44,33 +44,22 @@
 										{{ Form::close() }}
 									</div>
 								</div>
-							@endif	
+							@endif
 
 							<?php $n = 0 ?>
-
 							@foreach ($gallery->photos as $photo)
 								<?php $n = $n + 1 ?>
-							@endforeach						
+							@endforeach
 
-							@if ( $n == 0 )	
-								<figure class="last-photo">
-									<img src="{{ asset('images/static/incotec.jpg') }}" alt="incotec">
-								</figure>						
-							@else
-								<?php $src = basename( $gallery->photos->last()->image_url ).PHP_EOL; 	
-								$yearPath  = dirname( $gallery->photos->last()->image_url ).PHP_EOL;
-								$year      = basename( $yearPath ).PHP_EOL; ?>
+							<figure class="last-photo">
+								<img src="{{{ asset( isset($gallery->photos->last()->image_url) ? $gallery->photos->last()->image_url : 'images/static/incotec.jpg' ) }}}" alt="{{{ asset( isset($gallery->photos->last()->title) ? $gallery->photos->last()->title : 'incotec' ) }}}">
+							</figure>
 
-								<figure class="last-photo">
-									<img src="{{ asset( $gallery->photos->last()->image_url ) }}" alt="{{ $gallery->photos->last()->title }}">
-								</figure>	
-							@endif
-					
 							<div class="info">
 								<div class="left">
 									<span class="photos-num">{{ $n }}</span>
 									<span class="photos-tag">FOTOS</span>
-								</div>							
+								</div>
 
 								<div class="right">
 									<h3 class="title">
@@ -81,7 +70,7 @@
 								</div>
 							</div>
 
-						</div>	
+						</div>
 					@endforeach
 				</div>
 
@@ -90,11 +79,11 @@
 			</div>
 
 			<div class="extra-container">
-				@include('layouts.useful_links')	
-				@include('layouts.noticias')	
+				@include('layouts.useful_links')
+				@include('layouts.noticias')
 			</div>
 
 		</div>
-	</div>	
+	</div>
 
 @stop

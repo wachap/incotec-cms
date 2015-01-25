@@ -8,7 +8,7 @@
 			<span class="date">{{ date("M d, Y",strtotime($activity->date_begin)) }}</span>
 			<span class="time">{{ $activity->time }}</span>
 
-			<p class="content">{{ substr($activity->body,0,100).'...' }} <a href="{{ route('activity', [$activity->slug, $activity->id]) }}" class="more" rel="bookmark">VER MÁS</a>
+			<p class="content">{{ content_preview($activity->body) }} <a href="{{ route('activity', [$activity->slug, $activity->id]) }}" class="more" rel="bookmark">VER MÁS</a>
 
 			</p>
 		</article>

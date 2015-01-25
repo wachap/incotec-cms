@@ -1,8 +1,8 @@
 
 body
-	.container			
-		.courses-container	
-			.courses-				
+	.container
+		.courses-container
+			.courses-
 				.title-section
 					border-bottom 1px solid rgba(0, 0, 0, 0.05)
 					color #636363
@@ -14,7 +14,7 @@ body
 .pagination
 	float right
 	margin 0
-	padding 0					
+	padding 0
 	li
 		display inline-block
 		background #FFF
@@ -81,13 +81,13 @@ body
 	display table-cell
 	overflow hidden
 	padding 30px
-	box-sizing border-box	
+	box-sizing border-box
 	background #FFFFFF
 	width 66.6666%
 	float left
 	.new-container
 		&:nth-child(1)
-			display inline		
+			display inline
 
 
 .extra-container
@@ -95,11 +95,11 @@ body
 	display table-cell
 	overflow hidden
 	padding 30px
-	width 33.3333%		
-	box-sizing border-box	
+	width 33.3333%
+	box-sizing border-box
 	background: #F3F3F3
-	.links			
-		margin 0 0 60px 0		
+	.links
+		margin 0 0 60px 0
 		.title-widget
 			color #898989
 			font-size sm
@@ -141,15 +141,15 @@ body
 					text-decoration none
 					transition 0.3s all ease
 					&:hover
-						color color1				
+						color color1
 
 	.events
-		display block	
+		display block
 		box-sizing border-box
 		.title-section
 			color #898989
 			font-size sm
-			font-weight 400		
+			font-weight 400
 			margin 0 0 40px 0
 			position relative
 			&:before
@@ -160,13 +160,13 @@ body
 				position absolute
 				top 0
 				width 5px
-			
-		.post						
+
+		.post
 			margin 0 0 30px 0
 			padding 0 0 20px 0
 			border-bottom 1px solid #EAEAEA
 			&:nth-last-child(1)
-				margin 0 
+				margin 0
 				padding 0
 				border none
 			.title
@@ -177,13 +177,13 @@ body
 					font-size m
 					display block
 					text-transform uppercase
-					transition 0.3s all ease 
-					
+					transition 0.3s all ease
+
 					&:hover
 						color color1
 			.content
 				.more
-					transition 0.3s all ease 
+					transition 0.3s all ease
 					font-weight 600
 					&:hover
 						color black
@@ -228,7 +228,7 @@ body
 				position absolute
 				top 0
 				width 5px
-		
+
 		.post
 			clear both
 			margin 0 0 20px 0
@@ -236,7 +236,7 @@ body
 			border-bottom 1px solid #EAEAEA
 			overflow hidden
 			&:nth-last-child(1)
-				margin 0 
+				margin 0
 				padding 0
 				border none
 			.image
@@ -256,7 +256,7 @@ body
 					transition 0.3s all ease
 					&:hover
 						transform translate(-50%, -50%) scale(1.2)
-				
+
 			.date
 				margin 0 0 10px 90px
 				display block
@@ -272,22 +272,22 @@ body
 					font-size m
 					display block
 					text-transform uppercase
-					transition 0.3s all ease 
-					
+					transition 0.3s all ease
+
 					&:hover
 						color color1
-						
+
 
 .form
 	display block
 	box-sizing border-box
-	
+
 	.form-title
 		color #636363
 		font-size: m
 		font-weight: 700
 		margin 0 0 20px 0
-		
+
 		text-transform: uppercase
 
 	.form-label
@@ -325,43 +325,56 @@ body
 	box-sizing border-box
 	float left
 	margin 0 0 15px 0
-	
+
 	vertical-align: top
 	display block
 	width 100%
 	&:nth-last-child(1)
 		margin 0
-				
+
+
+
 .crud-container
 	display block
 	overflow hidden
 	padding 5px 0
-	
+
 .pull-right
 	float right
 
 .form-container
-	margin 40px 0 0 0 
+	margin 40px 0 0 0
 	padding 30px
 	box-sizing border-box
 	background: #FFF
 	overflow hidden
-	
+
 .by
 	color #FFF
 	text-decoration: none
 	font-weight 700
 	&:hover
 		text-decoration: underline
-	
+
 
 #map
 	height 100%
 	width 100%
-	
+
+
+.form-right
+	width: 50%;
+	padding: 0 0 0 15px;
+
+.form-left
+	width: 50%;
+	padding: 0 15px 0 0;
+
+
+
 
 @media screen and (max-width: 990px)
-			
+
 	.news-
 	.events-
 	.gallery-
@@ -377,7 +390,7 @@ body
 	.extra-container
 		display block
 		width 100%
-		
+
 .body
 	overflow hidden
 	color #777
@@ -385,3 +398,11 @@ body
 		line-height: normal
 		margin 0
 		color #777
+
+
+@media screen and (max-width: 770px)
+
+	.form-right
+	.form-left
+		width 100%
+		padding 0
