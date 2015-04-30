@@ -8,5 +8,5 @@
 
   http://incotec.herokuapp.com/login
 
-  - user: w4ch4p@gmail.com
+  - user: demo@demo.com
   - pass: 123456
