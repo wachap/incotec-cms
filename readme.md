@@ -1,6 +1,6 @@
 # Incotec
 
-## Watch this online 
+## Watch it online 
   
   http://incotec.herokuapp.com/
   
